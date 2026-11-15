@@ -1,0 +1,209 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node1
+  labels:
+    app: node1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node1
+  template:
+    metadata:
+      labels:
+        app: node1
+    spec:
+      containers:
+        - name: node
+          image: riot-nodes:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6001
+          env:
+            - name: NODE_ID
+              value: "1"
+            - name: CLUSTER_MEMBERS
+              value: "1=node1:6001,2=node2:6002,3=node3:6003,4=node4:6004,5=node5:6005"
+            - name: HEARTBEAT_INTERVAL_MS
+              value: "2000"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node1
+spec:
+  type: ClusterIP
+  selector:
+    app: node1
+  ports:
+    - port: 6001
+      targetPort: 6001
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node2
+  labels:
+    app: node2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node2
+  template:
+    metadata:
+      labels:
+        app: node2
+    spec:
+      containers:
+        - name: node
+          image: riot-nodes:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6002
+          env:
+            - name: NODE_ID
+              value: "2"
+            - name: CLUSTER_MEMBERS
+              value: "1=node1:6001,2=node2:6002,3=node3:6003,4=node4:6004,5=node5:6005"
+            - name: HEARTBEAT_INTERVAL_MS
+              value: "2000"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node2
+spec:
+  type: ClusterIP
+  selector:
+    app: node2
+  ports:
+    - port: 6002
+      targetPort: 6002
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node3
+  labels:
+    app: node3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node3
+  template:
+    metadata:
+      labels:
+        app: node3
+    spec:
+      containers:
+        - name: node
+          image: riot-nodes:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6003
+          env:
+            - name: NODE_ID
+              value: "3"
+            - name: CLUSTER_MEMBERS
+              value: "1=node1:6001,2=node2:6002,3=node3:6003,4=node4:6004,5=node5:6005"
+            - name: HEARTBEAT_INTERVAL_MS
+              value: "2000"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node3
+spec:
+  type: ClusterIP
+  selector:
+    app: node3
+  ports:
+    - port: 6003
+      targetPort: 6003
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node4
+  labels:
+    app: node4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node4
+  template:
+    metadata:
+      labels:
+        app: node4
+    spec:
+      containers:
+        - name: node
+          image: riot-nodes:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6004
+          env:
+            - name: NODE_ID
+              value: "4"
+            - name: CLUSTER_MEMBERS
+              value: "1=node1:6001,2=node2:6002,3=node3:6003,4=node4:6004,5=node5:6005"
+            - name: HEARTBEAT_INTERVAL_MS
+              value: "2000"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node4
+spec:
+  type: ClusterIP
+  selector:
+    app: node4
+  ports:
+    - port: 6004
+      targetPort: 6004
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node5
+  labels:
+    app: node5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node5
+  template:
+    metadata:
+      labels:
+        app: node5
+    spec:
+      containers:
+        - name: node
+          image: riot-nodes:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6005
+          env:
+            - name: NODE_ID
+              value: "5"
+            - name: CLUSTER_MEMBERS
+              value: "1=node1:6001,2=node2:6002,3=node3:6003,4=node4:6004,5=node5:6005"
+            - name: HEARTBEAT_INTERVAL_MS
+              value: "2000"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node5
+spec:
+  type: ClusterIP
+  selector:
+    app: node5
+  ports:
+    - port: 6005
+      targetPort: 6005

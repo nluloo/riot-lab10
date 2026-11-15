@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: riot-server
+  labels:
+    app: riot-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: riot-server
+  template:
+    metadata:
+      labels:
+        app: riot-server
+    spec:
+      containers:
+        - name: server
+          image: riot-server:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          env:
+            - name: APP_MODE
+              valueFrom:
+                configMapKeyRef:
+                  name: riot-config
+                  key: APP_MODE
+            - name: SERVER_PORT
+              value: "5000"
+            - name: CARRENTAL_PRIMARY_CONNECTION
+              value: "Host=primary;Port=5432;Username=postgres;Password=postgres;Database=carrental;Timeout=5"
+            - name: CARRENTAL_REPLICA_CONNECTION
+              value: "Host=replica;Port=5432;Username=postgres;Password=postgres;Database=carrental;Timeout=5"
+            - name: PUBLISHER_BROKERS
+              value: "broker:5001"
+            - name: CLUSTER_MEMBERS
+              value: "1=node1:6001,2=node2:6002,3=node3:6003,4=node4:6004,5=node5:6005"

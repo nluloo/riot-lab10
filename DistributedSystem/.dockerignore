@@ -1,0 +1,24 @@
+# В контекст сборки должно уезжать только то, что нужно dotnet publish: артефакты хоста
+# перетёрли бы слои контейнера, а Tests и Subscribers в образы ЛР №8 не входят вовсе.
+bin
+obj
+**/bin
+**/obj
+.vs
+.idea
+[Tt]est[Rr]esult*
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.git
+.gitignore
+.env
+*.md
+*.txt
+*.log
+DistributedSystem.sln
+**/Dockerfile
+.dockerignore
+Tests
+Subscribers
