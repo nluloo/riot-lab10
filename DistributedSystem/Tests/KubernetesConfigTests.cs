@@ -14,7 +14,7 @@ public class KubernetesConfigTests
         {
             Environment.SetEnvironmentVariable("APP_MODE", null);
             string mode = Environment.GetEnvironmentVariable("APP_MODE") ?? "standalone";
-            Assert.Equal("broken_for_experiment", mode);
+            Assert.Equal("standalone", mode);
         }
         finally
         {
