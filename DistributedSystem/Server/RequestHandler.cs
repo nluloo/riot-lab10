@@ -375,7 +375,7 @@ public class RequestHandler
         return new Response
         {
             Success = true,
-            Message = $"Доступных автомобилей: {cars.Count}. Данные читает {instance.Name}.",
+            Message = $"Доступных автомобилей: {cars.Count}. Данные читает {instance.Name} [v2.0-cicd].",
             Instance = instance.Name,
             Data = JsonSerializer.SerializeToElement(cars, CamelCase)
         };

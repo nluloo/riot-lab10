@@ -28,7 +28,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                bat 'python deploy_to_k3s.py simulate-deploy-error'
+                bat 'python deploy_to_k3s.py %BUILD_NUMBER%'
             }
         }
     }
