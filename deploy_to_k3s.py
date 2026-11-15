@@ -6,6 +6,22 @@ import paramiko
 from scp import SCPClient
 
 tag = sys.argv[1] if len(sys.argv) > 1 else "1.0"
+
+if tag == "simulate-deploy-error":
+    kubeconfig = os.environ.get("KUBECONFIG", r"D:\labs\sem7\riot\.temp\k3s_direct.yaml")
+    broken_image = "docker.io/library/riot-server:broken-tag-err"
+    print(f"SIMULATING DEPLOY ERROR: Setting deployment image to non-existent image {broken_image}...", flush=True)
+    subprocess.run([
+        "kubectl", "--kubeconfig", kubeconfig,
+        "set", "image", "deployment/riot-server", f"server={broken_image}"
+    ], check=True)
+    print("Waiting for rollout status (expecting timeout/failure due to ImagePullBackOff)...", flush=True)
+    subprocess.run([
+        "kubectl", "--kubeconfig", kubeconfig,
+        "rollout", "status", "deployment/riot-server", "--timeout=15s"
+    ], check=True)
+    sys.exit(0)
+
 image_name = f"riot-server:{tag}"
 print(f"Deploying {image_name} to k3s...", flush=True)
 
