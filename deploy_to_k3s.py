@@ -32,7 +32,7 @@ local_tar = os.path.abspath(f"D:/labs/sem7/riot/.temp/riot-server-{tag}.tar")
 print(f"Saving docker image {image_name} -> {local_tar}...", flush=True)
 subprocess.run(["docker", "save", "-o", local_tar, image_name], check=True)
 
-host = os.environ.get("K3S_HOST", "192.168.0.193")
+host = os.environ.get("K3S_HOST", "192.168.1.40")
 ssh_port = int(os.environ.get("K3S_SSH_PORT", "22"))
 user = os.environ.get("K3S_USER", "nluloo")
 pwd = os.environ.get("K3S_PWD", "nluloo")
