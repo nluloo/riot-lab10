@@ -28,7 +28,9 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                bat 'python deploy_to_k3s.py %BUILD_NUMBER%'
+                withEnv(['K3S_HOST=127.0.0.1']) {
+                    bat 'python deploy_to_k3s.py %BUILD_NUMBER%'
+                }
             }
         }
     }
