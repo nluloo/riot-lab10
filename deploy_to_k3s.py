@@ -7,8 +7,11 @@ from scp import SCPClient
 
 tag = sys.argv[1] if len(sys.argv) > 1 else "1.0"
 
+script_dir = os.path.dirname(os.path.abspath(__file__))
+default_kubeconfig = os.path.join(script_dir, "k3s-config", "k3s.yaml")
+kubeconfig = os.environ.get("KUBECONFIG", default_kubeconfig)
+
 if tag == "simulate-deploy-error":
-    kubeconfig = os.environ.get("KUBECONFIG", r"D:\labs\sem7\riot\.temp\k3s_direct.yaml")
     broken_image = "docker.io/library/riot-server:broken-tag-err"
     print(f"SIMULATING DEPLOY ERROR: Setting deployment image to non-existent image {broken_image}...", flush=True)
     subprocess.run([
@@ -29,15 +32,16 @@ local_tar = os.path.abspath(f"D:/labs/sem7/riot/.temp/riot-server-{tag}.tar")
 print(f"Saving docker image {image_name} -> {local_tar}...", flush=True)
 subprocess.run(["docker", "save", "-o", local_tar, image_name], check=True)
 
-host = "192.168.0.193"
-user = "nluloo"
-pwd = "nluloo"
-remote_tar = f"/home/nluloo/riot-server-{tag}.tar"
+host = os.environ.get("K3S_HOST", "192.168.0.193")
+ssh_port = int(os.environ.get("K3S_SSH_PORT", "22"))
+user = os.environ.get("K3S_USER", "nluloo")
+pwd = os.environ.get("K3S_PWD", "nluloo")
+remote_tar = f"/home/{user}/riot-server-{tag}.tar"
 
-print(f"Uploading to {host}...", flush=True)
+print(f"Uploading to {host}:{ssh_port}...", flush=True)
 ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-ssh.connect(host, port=22, username=user, password=pwd, timeout=10)
+ssh.connect(host, port=ssh_port, username=user, password=pwd, timeout=10)
 
 with SCPClient(ssh.get_transport()) as scp:
     scp.put(local_tar, remote_tar)
@@ -56,7 +60,6 @@ ssh.close()
 if os.path.exists(local_tar):
     os.remove(local_tar)
 
-kubeconfig = os.environ.get("KUBECONFIG", r"D:\labs\sem7\riot\.temp\k3s_direct.yaml")
 print(f"Updating deployment riot-server to {image_name} using {kubeconfig}...", flush=True)
 subprocess.run([
     "kubectl", "--kubeconfig", kubeconfig,

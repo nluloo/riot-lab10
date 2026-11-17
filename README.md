@@ -47,6 +47,13 @@
 5. **Package**: Сборка оптимизированного многоэтапного Docker-образа сервера (`docker build -t riot-server:%BUILD_NUMBER% .`).
 6. **Deploy**: Доставка Docker-образа на управляющий узел k3s (`sudo k3s ctr images import`), обновление образа в `deployment/riot-server` через `kubectl set image` и контроль успешного завершения развертывания через `kubectl rollout status`.
 
+### Структура каталогов проекта:
+* `DistributedSystem/` — исходный код решения на .NET 8 (`Server`, `Client`, `Shared`, `Nodes`, `Broker`, `Subscribers`, `Tests`);
+* `k8s-manifests/` — декларативные манифесты Kubernetes (`deployment.yaml`, `service.yaml`, `configmap.yaml`, `broker.yaml`, `cluster-nodes.yaml`, `postgres.yaml`);
+* `k3s-config/` — файл конфигурации доступа `kubeconfig` (`k3s.yaml`) для взаимодействия с API-сервером k3s;
+* `deploy_to_k3s.py` — скрипт автоматизированной доставки образа и обновления Deployment;
+* `Jenkinsfile` — сценарий конвейера CI/CD (Pipeline as Code).
+
 ---
 
 ## 2. Результаты выполнения Части 1: Подготовка окружения и подключение Git к Jenkins

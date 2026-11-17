@@ -63,6 +63,8 @@
 | `DistributedSystem/Tests/` | Комплекс из 129 Unit-, нагрузочных и интеграционных тестов |
 | `Jenkinsfile` | Декларативный сценарий конвейера CI/CD для Jenkins |
 | `deploy_to_k3s.py` | Автоматизированный скрипт доставки образа и обновления Deployment в k3s |
+| `k8s-manifests/` | Декларативные манифесты Kubernetes (deployment, service, configmap, broker, cluster-nodes, postgres) |
+| `k3s-config/` | Конфигурация доступа к кластеру k3s (файл `k3s.yaml`) |
 
 ---
 
