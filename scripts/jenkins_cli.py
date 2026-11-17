@@ -69,6 +69,10 @@ if __name__ == "__main__":
         print("=== CONSOLE OUTPUT ===")
         print(get_console(bnum))
         sys.exit(0 if res == "SUCCESS" else 1)
+    elif cmd == "trigger":
+        trigger_build()
+        print("Build successfully triggered!")
+        sys.exit(0)
     elif cmd == "log":
         bnum = sys.argv[2]
         print(get_console(bnum))

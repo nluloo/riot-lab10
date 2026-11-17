@@ -9,6 +9,10 @@ tag = sys.argv[1] if len(sys.argv) > 1 else "1.0"
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 default_kubeconfig = os.path.join(script_dir, "k3s-config", "k3s.yaml")
+if not os.path.exists(default_kubeconfig):
+    alt_kubeconfig = r"D:\labs\sem7\riot\labs\lab10\k3s-config\k3s.yaml"
+    if os.path.exists(alt_kubeconfig):
+        default_kubeconfig = alt_kubeconfig
 kubeconfig = os.environ.get("KUBECONFIG", default_kubeconfig)
 
 if tag == "simulate-deploy-error":

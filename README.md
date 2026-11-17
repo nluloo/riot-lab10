@@ -63,20 +63,20 @@
 * **Git**: `git version 2.42.0.windows.2`.
 * **Docker**: `Docker version 28.0.1, build 068a01e` (Docker Desktop Linux engine).
 * **kubectl**: Client Version `v1.30.0`, Server Version `v1.37.2+k3s1`.
-* **Jenkins**: `2.580.2` (порт `8085`, `JENKINS_HOME=D:\labs\sem7\riot\.temp\jenkins_home`).
+* **Jenkins**: `2.580.2` (порт `8085`, `JENKINS_HOME=D:\labs\sem7\riot\labs\lab10\jenkins\jenkins_home`).
 
 ### Настройка репозитория и Jenkins Job
 * Репозиторий инициализирован в каталоге `labs/lab10` с веткой `main`.
-* В качестве удаленного репозитория настроен локальный bare-репозиторий `D:/labs/sem7/riot/.temp/riot-repo.git`.
+* В качестве удаленного репозитория подключен GitHub: `https://github.com/nluloo/riot-lab10.git`.
 * Создано задание Pipeline под именем **`RIOT-CICD`**.
-* В конфигурации запуска Jenkins установлен флаг `-Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true`, разрешающий чекаут из локальных каталогов файловой системы.
+* В конфигурации запуска Jenkins разрешен чекаут из репозитория и настроен автоматический опрос/триггер.
 
 ### Таблица 1. Результаты подготовки среды и подключения Git к Jenkins (Часть 1, Требование 5)
 
 | № | Проверяемый параметр | Результат |
 |---|---|---|
-| 1 | Название Git-репозитория | `riot-lab10` (локальный upstream `riot-repo.git`) |
-| 2 | URL репозитория | `D:/labs/sem7/riot/.temp/riot-repo.git` |
+| 1 | Название Git-репозитория | `riot-lab10` |
+| 2 | URL репозитория | `https://github.com/nluloo/riot-lab10.git` |
 | 3 | Используемая ветка | `main` |
 | 4 | Название Jenkins Job | `RIOT-CICD` |
 | 5 | Расположение Jenkinsfile | `Jenkinsfile` (в корне репозитория) |

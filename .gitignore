@@ -6,6 +6,6 @@
 .temp/
 *.log
 *.tar
-jenkins/jenkins_home/
-jenkins/*.war
-jenkins/riot-repo.git/
+jenkins/
+start-jenkins.bat
+k3s-config/k3s.yaml
