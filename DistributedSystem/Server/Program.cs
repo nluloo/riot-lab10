@@ -48,7 +48,7 @@ var instances = new InstanceManager(primary, replica, journal);
 var replicator = new Replicator(journal);
 var requestHandler = new RequestHandler(instances, replicator, journal, processingDelayMs, publisher, cluster);
 
-Console.WriteLine("Сервер аренды автомобилей (ЛР №10, CI/CD Jenkins Pipeline v2.0)");
+Console.WriteLine("Сервер аренды автомобилей (ЛР №10, CI/CD Jenkins Pipeline v2.0) test ci cd");
 Console.WriteLine($"Application mode (APP_MODE): {appMode}");
 journal.Write("Server", $"Режим работы (APP_MODE): {appMode}");
 Console.WriteLine("Архитектура: Client -> Server -> Primary + Replica (два экземпляра PostgreSQL)");
